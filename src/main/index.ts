@@ -2,6 +2,7 @@ import { app, shell, BrowserWindow, ipcMain } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
+import { executerMigrations } from './database/migrations'
 
 function createWindow(): void {
   // Create the browser window.
@@ -39,6 +40,14 @@ function createWindow(): void {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(() => {
+// 1. Initialisation de la base de données SQLite
+  try {
+    executerMigrations()
+  } catch (erreur) {
+    console.error("Erreur critique lors de l'initialisation de la base de données :", erreur)
+    // Optionnel : Tu pourrais empêcher l'ouverture de l'application ici si la BDD crash
+  }
+
   // Set app user model id for windows
   electronApp.setAppUserModelId('com.electron')
 
