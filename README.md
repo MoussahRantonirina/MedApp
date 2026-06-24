@@ -33,7 +33,7 @@ $ npm run build:mac
 $ npm run build:linux
 ```
 
-## 📦 Base de données (SQLite)
+## Base de données (SQLite)
 
 L'application utilise `better-sqlite3` pour la persistance des données. Les tables sont automatiquement créées ou mises à jour au démarrage du projet via un script de migration automatique.
 
